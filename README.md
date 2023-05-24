@@ -16,6 +16,6 @@ When parsing, there is little validating being done to accomodate for obsolete p
 
 It makes no attempts at validating or accepting new iana registered vCard elements, language tags, or mime types, including vendor specific ones. These can be added in the proper validation array constants defined in the VCProperty class, or as new regular expression validations. Please add appropriate tests in vcf.test.php
 
-There is a fair amount of validation when building vCards for v4 compliance but there is no detailed value validation for a number of properties (e.g. XML, MEDIATYPE, ...) and parameters. See the VCProperty for implementation details.
+There is a fair amount of validation when building vCards for v4 compliance but there is no detailed value validation for a number of properties (e.g. XML, MEDIATYPE, ...) and parameters. See the VCProperty class for implementation details.
 
 See the vcf.test.php for usage hints
