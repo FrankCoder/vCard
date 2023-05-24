@@ -1,0 +1,21 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//macOS 13.2.1//EN
+N:Hondo;Peter;;;
+FN:Peter Hondo
+ORG:Big Co. #1;
+TEL;type=CELL;type=VOICE;type=pref:555-255-2555
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//macOS 13.2.1//EN
+N:Birder;Isabelle;;;
+FN:Isabelle Birder
+EMAIL;type=INTERNET;type=HOME;type=pref:bird.belle@gmail.com
+EMAIL;type=INTERNET;type=WORK:work.belle@company.com
+TEL;type=IPHONE;type=CELL;type=VOICE;type=pref:+1 (555) 755-7555
+item1.ADR;type=HOME;type=pref:;;12345 Fligth Road Rd;San Diego;CA;92155;Uni
+ ted States
+item1.X-ABADR:us
+PHOTO;ENCODING=b;TYPE=JPEG:/9j/CRAPPHOTODATATHATSHOULDBEAMILELONG//2Q==
+END:VCARD
