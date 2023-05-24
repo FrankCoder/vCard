@@ -3,7 +3,8 @@
 // Trivial test functions that echo results back to browser
 //
 /**
- * Prints Passed or Failed followed by test name.
+ * Prints Passed or Failed followed by test name. 
+ * Intended for internal use by the test functions.
  * @param string $calledBy 
  * @param string $testName 
  * @param bool $testResult 
