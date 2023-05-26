@@ -686,7 +686,7 @@ class VCCard implements ArrayAccess, Iterator, Countable, Stringable{
     }
     /**
      * Full name of vCard (property FN with cardinality 1)
-     * @return string Returns value of required property 'FN'
+     * @return string Returns value of required property 'FN', null if called before FN added to card.
      */
     public function fn(): string|null{
         $result = $this->property('FN');
@@ -701,7 +701,7 @@ class VCCard implements ArrayAccess, Iterator, Countable, Stringable{
      * @return void 
      */
     public function addProperty(VCProperty|VCAddress|VCN $vcfProperty):void{
-        $this[] = $vcfProperty;
+        $this->_properties[] = $vcfProperty;
     }
     /**
      * Retrieves property or array of properties with given name.
@@ -717,9 +717,29 @@ class VCCard implements ArrayAccess, Iterator, Countable, Stringable{
             // the array instead of looking for first
             $props = array_filter($this->_properties, fn($v) => $v->name === $propName);
             $num = count($props);
-            return $num === 0 ? null : ($num === 1 ? array_pop($props) : $props);
+            return $num === 0 ? null : ($num === 1 ? current($props) : $props);
         }
         return $this->_properties[$key];
+    }
+    /**
+     * Retrieves the value for the given property.
+     * 
+     * If more than one property, returns the value of the property with 
+     * a pref parameter of 1 or the first property in the array if pref is not set.
+     * @param string $propertyname 
+     * @return string empty string is returmned if property not present.
+     */
+    public function value(string $propertyname): string{
+        $prop = $this->property($propertyname);
+        if($prop === null) { return ""; }
+        if(is_array($prop)){
+            $result = array_filter($prop, fn($v) => $v->pref() === 1);
+            if(count($result) > 0){
+                return current($result)->value;
+            }
+            return current($prop)->value;
+        }
+        return $prop->value;
     }
     /**
      * Returns the count of properties
@@ -778,15 +798,23 @@ class VCCard implements ArrayAccess, Iterator, Countable, Stringable{
      * NON-STANDARD array access.
      * The underlying array is never associative other than a sequential 0 based key index.
      * 
-     * This get accessor calls the VCCard::property() method.
-     * @param mixed $offset Effectively accepts an integer or the property name to retrieve. Any other type will cause the accessor to return false.
-     * @return mixed In effect will return VCProperty|VCAddress|VCN|array|null|false
+     * Returns the property (ies) or the value of the given offset:
+     * 
+     * This get accessor calls the VCCard::value() nethod if the property name is passed as 
+     * the offset and VCCard::property() method if the offset is an integer.
+     * @param mixed $offset Effectively accepts an integer to retrieve a property at a given position,
+     *  or the property name of which to retrieve the value. Any other type will cause the accessor to return false.
+     * @return mixed In effect will return VCProperty|VCAddress|VCN|array|string|null|false or the value of the 
+     * requested property.
      */
     public function offsetGet(mixed $offset): mixed {
-        if(!is_string($offset) && !is_int($offset)){
-            return null;
+        if(is_string($offset)){
+            return $this->value($offset);
         }
-        return $this->property($offset);
+        if(is_int($offset)){
+            return $this->property($offset);
+        }
+        return false;
         // return isset($this->_properties[$offset]) ? $this->_properties[$offset] : null;
     }
     //

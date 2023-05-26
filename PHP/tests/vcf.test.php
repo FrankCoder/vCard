@@ -126,8 +126,8 @@ try{
     assertTrue('VCCardCollection created from loading file', !!$vCardCollection);
     assertMatch('First vCard is Peter Hondo', 'Peter Hondo - PRODID, N, FN, ORG, TEL', $vCardCollection[0]->fn().' - '.implode(", ",$vCardCollection[0]->propertyNames()));
     assertMatch('Second vCard is Isabelle Birder', 'Isabelle Birder - PRODID, N, FN, EMAIL, TEL, ADR, PHOTO', $vCardCollection[1]->fn().' - '.implode(", ",$vCardCollection[1]->propertyNames()));
-    assertTrue('Isabelle Birder photo type is JPEG', $vCardCollection[1]['PHOTO']->hasTypeValue('JPEG'));
-    assertMatch('Photo encoding is b', 'b', $vCardCollection[1]['PHOTO']->getParameterValue('encoding'));
+    assertTrue('Isabelle Birder photo type is JPEG', $vCardCollection[1]->property('PHOTO')->hasTypeValue('JPEG'));
+    assertMatch('Photo encoding is b', 'b', $vCardCollection[1]->property('PHOTO')->getParameterValue('encoding'));
     $vCards2 = new VCCardCollection();
     assertTrue('VCCardCollection default construction', !!$vCards2);
     $vCard = new VCCard();
