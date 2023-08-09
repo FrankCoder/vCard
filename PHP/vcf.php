@@ -444,9 +444,9 @@ class VCProperty implements Stringable{
     // valisdation.
     //
     // Regex for parsing v4.0 vCard property string (e.g.; priates.FN;value=text:Jack B. Sparrow)
-    //                   case insensitive                             captures name of property
-    //                   \_____    _____/ captures group if any       \_______captures version 4 VCARD property names______________________________________________________________________________________________________________________________________________________________________________________________x-name______________/ captures parameters if any                               value
-    //                         \__/       \__________________________/        \__________________________________________________________________________________________________________________________________________________________________________________________________________________________________/ \___________________/ \_____________________________________________________/  \________/
+    //                         case insensitive                          captures name of property
+    //                         \_____    _____/ captures group if any    \_______captures version 4 VCARD property names______________________________________________________________________________________________________________________________________________________________________________________________x-name_______________/ captures parameters if any                              value
+    //                               \__/       \______________________/         \__________________________________________________________________________________________________________________________________________________________________________________________________________________________________/ \____________________/ \_____________________________________________________/ \________/
     // private const _prop_v4_re = '/(?i)^\s*(?:(?<grp>[a-zA-Z0-9-]+)\.)?(?<name>(?:BEGIN|VERSION|END|SOURCE|KIND|FN|N|NICKNAME|PHOTO|BDAY|ANNIVERSARY|GENDER|ADR|TEL|EMAIL|IMPP|LANG|TZ|GEO|TITLE|ROLE|LOGO|ORG|MEMBER|RELATED|CATEGORIES|NOTE|PRODID|REV|SOUND|UID|CLIENTPIDMAP|URL|KEY|FBURL|CALADRURI|CALURI|XML)|(?:[xX]-[a-zA-Z0-9-]+))(?<params>(?:;[a-zA-Z]+=(?:(?:"[^"]+")|(?:[^;\:]+)))*)\:(?<val>.+)$/';
 
     // Regex for parsing vCard property string (no property validation)
